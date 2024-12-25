@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^([0-9]+)$ index.php [L,QSA]
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

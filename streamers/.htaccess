@@ -1,0 +1,5 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Rewrite rule for YouTuber ID
+RewriteRule ^([0-9]+)$ streamer.php?id=$1 [L,QSA]
