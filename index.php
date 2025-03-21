@@ -104,7 +104,7 @@ try {
             <div class="swiper-wrapper">
                 <?php foreach ($streamers as $index => $streamer): ?>
                     <div class="swiper-slide creator-card" id="streamer-card-<?= $index; ?>">
-                        <img src="<?= htmlspecialchars($streamer['profile']); ?>"
+                        <img src="<?= htmlspecialchars($streamer['profile']); ?>?v=<?php echo time(); ?>"
                             alt="<?= htmlspecialchars($streamer['name']); ?>'s Profile Picture"
                             class="profile"
                             data-id="streamer-card-<?= $index; ?>"

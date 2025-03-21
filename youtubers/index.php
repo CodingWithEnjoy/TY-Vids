@@ -63,7 +63,7 @@ try {
     <div class="creators-list">
         <?php foreach ($youtubers as $index => $youtuber): ?>
             <div class="swiper-slide creator-card" id="youtuber-card-<?= $index; ?>">
-                <img src="<?= htmlspecialchars($youtuber['profile']); ?>"
+                <img src="<?= htmlspecialchars($youtuber['profile']); ?>?v=<?php echo time(); ?>"
                     alt="<?= htmlspecialchars($youtuber['name']); ?>'s Profile Picture"
                     class="profile"
                     data-id="youtuber-card-<?= $index; ?>"

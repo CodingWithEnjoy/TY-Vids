@@ -47,7 +47,7 @@ $current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
     <div class="creator-page">
         <div class="creator-body">
-            <img src="<?= htmlspecialchars($creator['profile']); ?>" alt="<?= htmlspecialchars($creator['name']); ?>'s Profile" class="creator-profile" />
+            <img src="<?= htmlspecialchars($creator['profile']); ?>?v=<?php echo time(); ?>" alt="<?= htmlspecialchars($creator['name']); ?>'s Profile" class="creator-profile" />
 
             <h1><?= htmlspecialchars($creator['name']); ?></h1>
 
@@ -56,6 +56,8 @@ $current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             <span>
                 شروع از<p id="jalali-date"><?= htmlspecialchars($creator['record']) ?></p>
             </span>
+
+            <p>تعداد مشترکین: <span id="subscribers-count">درحال بارگذاری...</span></p>
 
             <div class="social-links">
                 <?php if (!empty($creator['twitch_id'])) : ?>
@@ -140,6 +142,27 @@ $current_url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
                 document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
             };
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const youtubeId = "<?= htmlspecialchars($creator['youtube_link']); ?>";
+
+            if (youtubeId) {
+                const apiUrl = `https://mixerno.space/api/youtube-channel-counter/user/${youtubeId}`;
+
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        const subscribers = data.counts.find(item => item.value === "subscribers")?.count || "نامشخص";
+                        document.getElementById("subscribers-count").innerText = subscribers.toLocaleString();
+                    })
+                    .catch(error => {
+                        console.error("Error fetching YouTube subscribers:", error);
+                        document.getElementById("subscribers-count").innerText = "نامشخص";
+                    });
+            } else {
+                document.getElementById("subscribers-count").innerText = "در دسترس نیست";
+            }
         });
     </script>
 </body>
